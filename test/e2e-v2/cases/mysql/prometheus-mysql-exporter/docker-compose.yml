@@ -23,19 +23,32 @@ services:
     environment:
       SW_OTEL_RECEIVER: default
       SW_OTEL_RECEIVER_ENABLED_OC_RULES: mysql
-      DATA_SOURCE_NAME: root:123456@(101.43.154.237:3306)
-      MYSQL_ADDRESS: 101.43.154.237:3306
+      SW_SW_CTL_COMMIT: 0.10.0
     ports:
       - 12800
-
+  mysql:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=database
   mysql-service:
-    build:
-      context: .
-      dockerfile: Dockerfile.mysqlExporter
+    image: prom/mysqld-exporter
+    ports:
+      - "9104:9104"
+    environment:
+      - DATA_SOURCE_NAME=root:password@(mysql:3306)/database
     networks:
       - e2e
-    ports:
-      - 9104
+#  mysql-service:
+ #   build:
+ #     context: .
+ #     dockerfile: Dockerfile.mysqlExporter
+ #   networks:
+ #     - e2e
+ #   ports:
+ #     - 9104
 
   otel-collector:
     image: otel/opentelemetry-collector:0.54.0

@@ -7,4 +7,4 @@
      - name: Run E2E Test
        uses: apache/skywalking-infra-e2e@main
        with:
-         e2e-file: test/e2e-v2/cases/mysql/prometheus-mysql-exporter/e2e.yaml
+         e2e-file: $GITHUB_WORKSPACE/test/e2e-v2/cases/mysql/prometheus-mysql-exporter/e2e.yaml

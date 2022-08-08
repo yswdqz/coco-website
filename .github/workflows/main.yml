@@ -4,7 +4,8 @@
     test:
      runs-on: ubuntu-latest
      steps:
+     - uses: actions/checkout@v2
      - name: Run E2E Test
        uses: apache/skywalking-infra-e2e@main
        with:
-         e2e-file: /home/runner/work/coco-website/test/e2e-v2/cases/mysql/prometheus-mysql-exporter/e2e.yaml
+         e2e-file: $GITHUB_WORKSPACE/test/e2e-v2/cases/mysql/prometheus-mysql-exporter/e2e.yaml
